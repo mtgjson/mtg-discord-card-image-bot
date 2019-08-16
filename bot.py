@@ -42,5 +42,6 @@ async def on_message(message):
     else:
         await message.channel.send('Please supply a card name!')
 
-client.run(os.environ['BOT_TOKEN'])
-# https://discordapp.com/oauth2/authorize?&client_id=611462068716961813&scope=bot&permissions=55296
+if __name__ == "__main__":
+    client.run(os.environ['BOT_TOKEN'])
+    # https://discordapp.com/oauth2/authorize?&client_id=611462068716961813&scope=bot&permissions=55296
