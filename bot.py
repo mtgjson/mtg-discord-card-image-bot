@@ -13,8 +13,7 @@ def get_card(card):
     # Use Scryfall to get the card by fuzzy lookup
     response = requests.get('https://api.scryfall.com/cards/named?fuzzy={card}'.format(card=card))
     response.raise_for_status()
-    response = response.json()
-    return response
+    return response.json()
 
 
 # On client connect
@@ -44,5 +43,6 @@ async def on_message(message):
         return await message.channel.send(retrieved_card['details'])
 
 
-client.run(os.environ['BOT_TOKEN'])
-# https://discordapp.com/oauth2/authorize?&client_id=611462068716961813&scope=bot&permissions=55296
+if __name__ == "__main__":
+    client.run(os.environ['BOT_TOKEN'])
+    # https://discordapp.com/oauth2/authorize?&client_id=611462068716961813&scope=bot&permissions=55296
