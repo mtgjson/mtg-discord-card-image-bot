@@ -13,7 +13,6 @@ def getCard(card):
     # Use Scryfall to get the card by fuzzy lookup
     response = requests.get(
         'https://api.scryfall.com/cards/named?fuzzy=' + card)
-    response = response.json()
     return response
 
 # On client connect
@@ -29,15 +28,16 @@ async def on_message(message):
         return
     cardName = message.content.split(trigger)[1]
     if (cardName):
-        retrievedCard = getCard(cardName)
+        response = getCard(cardName)
+        card_data = response.json()
 
         # Success, we found a card that didnt 404
-        if 'image_uris' in retrievedCard:
-            await message.channel.send(retrievedCard['image_uris']['border_crop'])
+        if retrivedCard.status_code != 404:
+            await message.channel.send(card_data['image_uris']['border_crop'])
             return
         # Failed to find a card so send the error message
         else:
-            await message.channel.send(retrievedCard['details'])
+            await message.channel.send(card_data['details'])
             return
     else:
         await message.channel.send('Please supply a card name!')
