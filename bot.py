@@ -32,7 +32,7 @@ async def on_message(message):
         card_data = response.json()
 
         # Success, we found a card that didnt 404
-        if retrivedCard.status_code != 404:
+        if card_data.status_code != 404:
             await message.channel.send(card_data['image_uris']['border_crop'])
             return
         # Failed to find a card so send the error message
